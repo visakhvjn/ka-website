@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Target, Eye } from "lucide-react";
 import { site } from "@/data/site";
+import { heroImages } from "@/data/hero-images";
 import { PageHero } from "@/components/layout/PageHero";
 import { CtaBanner } from "@/components/layout/CtaBanner";
 import { Container } from "@/components/ui/Container";
@@ -18,6 +19,7 @@ export default function AboutPage() {
         eyebrow="About us"
         title="Built for UAE businesses that demand more"
         description="We are a team of certified accountants, tax consultants, and compliance specialists dedicated to making financial management effortless."
+        image={heroImages.about}
       />
 
       <section className="py-20">

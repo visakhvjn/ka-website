@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Check } from "lucide-react";
 import { packages } from "@/data/packages";
 import { site } from "@/data/site";
+import { heroImages } from "@/data/hero-images";
 import { PageHero } from "@/components/layout/PageHero";
 import { CtaBanner } from "@/components/layout/CtaBanner";
 import { Container } from "@/components/ui/Container";
@@ -20,6 +21,7 @@ export default function PackagesPage() {
         eyebrow="Packages"
         title="Plans that scale with your business"
         description="Transparent pricing tiers designed for startups, growing companies, and established enterprises across the UAE."
+        image={heroImages.packages}
       />
 
       <section className="pattern-dots py-20">

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { site } from "@/data/site";
+import { heroImages } from "@/data/hero-images";
 import { PageHero } from "@/components/layout/PageHero";
 import { Container } from "@/components/ui/Container";
 import { ContactForm } from "@/components/contact/ContactForm";
@@ -17,6 +18,7 @@ export default function ContactPage() {
         eyebrow="Contact"
         title="Let's start a conversation"
         description="Whether you need a quick compliance check or a full finance outsourcing partner — we're here to help."
+        image={heroImages.contact}
       />
 
       <section className="py-20">

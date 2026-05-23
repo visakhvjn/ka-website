@@ -5,6 +5,7 @@ import {
   serviceCategories,
 } from "@/data/services";
 import { site } from "@/data/site";
+import { getHeroImage } from "@/data/hero-images";
 import { PageHero } from "@/components/layout/PageHero";
 import { CtaBanner } from "@/components/layout/CtaBanner";
 import { CategoryContent } from "@/components/services/CategoryContent";
@@ -44,6 +45,7 @@ export default async function ServiceCategoryPage({ params }: PageProps) {
         eyebrow="Services"
         title={category.title}
         description={category.shortDescription}
+        image={getHeroImage(category.slug)}
       />
       <CategoryContent category={category} />
       <CtaBanner />

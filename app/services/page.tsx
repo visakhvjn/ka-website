@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { serviceCategories } from "@/data/services";
 import { site } from "@/data/site";
+import { heroImages } from "@/data/hero-images";
 import { PageHero } from "@/components/layout/PageHero";
 import { CtaBanner } from "@/components/layout/CtaBanner";
 import { Container } from "@/components/ui/Container";
@@ -19,6 +20,7 @@ export default function ServicesPage() {
         eyebrow="Services"
         title="Comprehensive financial services"
         description="Seven practice areas covering every aspect of UAE financial compliance and business advisory."
+        image={heroImages.services}
       />
 
       <section className="pattern-dots py-20">

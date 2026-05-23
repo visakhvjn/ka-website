@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { faqs } from "@/data/faq";
 import { site } from "@/data/site";
+import { heroImages } from "@/data/hero-images";
 import { PageHero } from "@/components/layout/PageHero";
 import { CtaBanner } from "@/components/layout/CtaBanner";
 import { Container } from "@/components/ui/Container";
@@ -18,6 +19,7 @@ export default function FaqPage() {
         eyebrow="FAQ"
         title="Questions & answers"
         description="Everything you need to know about working with Innovative & Strategic F.Z.E."
+        image={heroImages.faq}
       />
 
       <section className="py-20">

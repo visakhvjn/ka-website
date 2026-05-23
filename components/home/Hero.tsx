@@ -2,24 +2,38 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { site } from "@/data/site";
+import { heroImages } from "@/data/hero-images";
 import { serviceCategories } from "@/data/services";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 
 export function Hero() {
   const highlights = serviceCategories.slice(0, 4);
+  const image = heroImages.home;
 
   return (
-    <section className="hero-rich relative overflow-hidden text-white">
-      <div className="brand-stripe" />
+    <section className="relative min-h-[32rem] overflow-hidden text-white lg:min-h-[36rem]">
+      <div className="brand-stripe relative z-10" />
+      <div className="absolute inset-0 z-0">
+        <div className="relative h-full w-full">
+          <Image
+            src={image.src}
+            alt={image.alt}
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0a1628]/94 via-[#0f2340]/82 to-[#1a365d]/45" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a1628]/50 via-transparent to-[#0f2340]/20" />
+      </div>
 
       {/* Ambient color orbs */}
-      <div className="pointer-events-none absolute -left-32 top-20 h-96 w-96 rounded-full bg-accent/30 blur-[100px]" />
-      <div className="pointer-events-none absolute -right-20 top-32 h-80 w-80 rounded-full bg-accent-warm/25 blur-[90px]" />
-      <div className="pointer-events-none absolute bottom-0 left-1/3 h-72 w-72 rounded-full bg-accent-rose/20 blur-[80px]" />
-      <div className="pointer-events-none absolute bottom-10 right-1/4 h-56 w-56 rounded-full bg-accent-green/20 blur-[70px]" />
+      <div className="pointer-events-none absolute -left-32 top-20 z-[1] h-96 w-96 rounded-full bg-accent/20 blur-[100px]" />
+      <div className="pointer-events-none absolute -right-20 top-32 z-[1] h-80 w-80 rounded-full bg-accent-warm/15 blur-[90px]" />
 
-      <Container className="relative py-16 lg:py-24">
+      <Container className="relative z-10 py-16 lg:py-24">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium backdrop-blur-sm">
