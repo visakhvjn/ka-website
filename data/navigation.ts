@@ -10,6 +10,10 @@ export const mainNav = [
       label: cat.title,
       href: `/services/${cat.slug}`,
       description: cat.shortDescription,
+      subServices: cat.subServices.map((sub) => ({
+        label: sub.title,
+        href: `/services/${cat.slug}#${sub.id}`,
+      })),
     })),
   },
   { label: "Packages", href: "/packages" },

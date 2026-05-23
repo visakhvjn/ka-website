@@ -8,6 +8,7 @@ import { site } from "@/data/site";
 import { PageHero } from "@/components/layout/PageHero";
 import { CtaBanner } from "@/components/layout/CtaBanner";
 import { CategoryContent } from "@/components/services/CategoryContent";
+import { ScrollToHash } from "@/components/services/ScrollToHash";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -38,6 +39,7 @@ export default async function ServiceCategoryPage({ params }: PageProps) {
 
   return (
     <>
+      <ScrollToHash />
       <PageHero
         eyebrow="Services"
         title={category.title}

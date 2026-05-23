@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import type { ServiceCategory } from "@/data/services";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
@@ -13,44 +13,27 @@ export function CategoryContent({ category }: CategoryContentProps) {
     <>
       <section className="py-16">
         <Container>
-          <div className="flex items-start gap-6">
-            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-surface-muted text-brand">
-              <category.icon className="h-8 w-8" />
-            </div>
-            <div>
-              <p className="text-lg leading-relaxed text-muted">
-                {category.description}
-              </p>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      <section className="pattern-dots py-16">
-        <Container>
-          <h2 className="mb-10 font-display text-2xl font-bold text-brand">
+          <h2 className="mb-12 font-display text-2xl font-bold text-brand">
             What we offer
           </h2>
-          <div className="grid gap-6 sm:grid-cols-2">
-            {category.subServices.map((service) => (
+          <div className="divide-y divide-border">
+            {category.subServices.map((service, index) => (
               <article
                 key={service.id}
                 id={service.id}
-                className="card-rich scroll-mt-32 p-6"
-                style={
-                  {
-                    "--card-accent":
-                      "linear-gradient(90deg, #2563eb, #38bdf8)",
-                  } as React.CSSProperties
-                }
+                className="scroll-mt-32 py-10 first:pt-0 last:pb-0"
               >
-                <div className="flex items-start gap-3">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
-                  <div>
-                    <h3 className="font-semibold text-brand">
+                <div className="flex gap-6">
+                  <span className="hidden w-8 shrink-0 pt-1 text-sm font-semibold tabular-nums text-accent sm:block">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="font-display text-xl font-bold text-brand sm:text-2xl">
                       {service.title}
                     </h3>
-                    <p className="mt-2 text-muted">{service.description}</p>
+                    <p className="mt-4 max-w-3xl text-base leading-relaxed text-muted">
+                      {service.description}
+                    </p>
                   </div>
                 </div>
               </article>

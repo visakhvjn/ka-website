@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Mail, MapPin, Menu, Phone, X } from "lucide-react";
 import { mainNav } from "@/data/navigation";
+import { serviceCategories } from "@/data/services";
 import { site } from "@/data/site";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
@@ -43,7 +44,10 @@ export function Header() {
         </div>
       </div>
 
-      <nav className="border-b border-brand-muted/50 bg-brand-muted">
+      <nav
+        className="relative border-b border-brand-muted/50 bg-brand-muted"
+        onMouseLeave={() => setServicesOpen(false)}
+      >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
           <Link href="/" className="flex shrink-0 items-center">
             <Image
@@ -61,9 +65,7 @@ export function Header() {
               item.label === "Services" && "children" in item ? (
                 <div
                   key={item.label}
-                  className="relative"
                   onMouseEnter={() => setServicesOpen(true)}
-                  onMouseLeave={() => setServicesOpen(false)}
                 >
                   <Link
                     href={item.href}
@@ -71,42 +73,6 @@ export function Header() {
                   >
                     {item.label}
                   </Link>
-                  <div
-                    className={cn(
-                      "absolute left-1/2 top-full z-50 w-[640px] -translate-x-1/2 pt-2 transition-all",
-                      servicesOpen
-                        ? "visible opacity-100"
-                        : "invisible opacity-0",
-                    )}
-                  >
-                    <div className="overflow-hidden rounded-2xl border border-border bg-surface-elevated shadow-2xl">
-                      <div className="brand-stripe" />
-                      <div className="grid grid-cols-2 gap-1 p-4">
-                        {item.children.map((child) => (
-                          <Link
-                            key={child.href}
-                            href={child.href}
-                            className="rounded-xl p-3 transition-colors hover:bg-surface-muted"
-                          >
-                            <p className="text-sm font-semibold text-brand">
-                              {child.label}
-                            </p>
-                            <p className="mt-0.5 line-clamp-1 text-xs text-muted">
-                              {child.description}
-                            </p>
-                          </Link>
-                        ))}
-                      </div>
-                      <div className="border-t border-border bg-surface-muted px-4 py-3">
-                        <Link
-                          href="/services"
-                          className="text-sm font-semibold text-accent hover:text-brand"
-                        >
-                          View all services →
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               ) : (
                 <Link
@@ -144,6 +110,58 @@ export function Header() {
           </button>
         </div>
 
+        <div
+          className={cn(
+            "absolute left-1/2 top-full z-50 hidden w-[min(80rem,calc(100vw-2rem))] -translate-x-1/2 pt-2 transition-all lg:block",
+            servicesOpen
+              ? "visible opacity-100"
+              : "pointer-events-none invisible opacity-0",
+          )}
+          onMouseEnter={() => setServicesOpen(true)}
+        >
+          <div className="overflow-hidden rounded-2xl border border-border bg-surface-elevated shadow-2xl">
+            <div className="brand-stripe" />
+            <div className="grid grid-cols-2 gap-x-6 gap-y-8 p-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7">
+              {serviceCategories.map((cat) => (
+                <div key={cat.slug}>
+                  <Link
+                    href={`/services/${cat.slug}`}
+                    className="group mb-3 flex items-start gap-2"
+                    onClick={() => setServicesOpen(false)}
+                  >
+                    <cat.icon className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+                    <span className="text-xs font-bold uppercase leading-snug tracking-wide text-brand group-hover:text-accent">
+                      {cat.title}
+                    </span>
+                  </Link>
+                  <ul className="space-y-1.5">
+                    {cat.subServices.map((sub) => (
+                      <li key={sub.id}>
+                        <Link
+                          href={`/services/${cat.slug}#${sub.id}`}
+                          className="block text-sm leading-snug text-muted transition-colors hover:text-brand"
+                          onClick={() => setServicesOpen(false)}
+                        >
+                          {sub.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            <div className="border-t border-border bg-surface-muted px-6 py-3">
+              <Link
+                href="/services"
+                className="text-sm font-semibold text-accent hover:text-brand"
+                onClick={() => setServicesOpen(false)}
+              >
+                View all services →
+              </Link>
+            </div>
+          </div>
+        </div>
+
         {mobileOpen && (
           <div className="border-t border-white/10 bg-brand px-4 py-4 lg:hidden">
             <div className="flex flex-col gap-1">
@@ -159,16 +177,31 @@ export function Header() {
                     >
                       {item.label}
                     </Link>
-                    <div className="ml-3 flex flex-col gap-0.5 border-l-2 border-amber-400/50 pl-3">
+                    <div className="ml-3 flex flex-col gap-2 border-l-2 border-amber-400/50 pl-3">
                       {servicesItem.children.map((child) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          className="rounded-lg px-3 py-2 text-sm text-blue-100 hover:bg-white/10"
-                          onClick={() => setMobileOpen(false)}
-                        >
-                          {child.label}
-                        </Link>
+                        <div key={child.href}>
+                          <Link
+                            href={child.href}
+                            className="block rounded-lg px-3 py-2 text-sm font-semibold text-white hover:bg-white/10"
+                            onClick={() => setMobileOpen(false)}
+                          >
+                            {child.label}
+                          </Link>
+                          {"subServices" in child && (
+                            <div className="ml-3 flex flex-col gap-0.5 border-l border-white/20 pl-3">
+                              {child.subServices.map((sub) => (
+                                <Link
+                                  key={sub.href}
+                                  href={sub.href}
+                                  className="rounded-lg px-3 py-1.5 text-xs text-blue-100/90 hover:bg-white/10"
+                                  onClick={() => setMobileOpen(false)}
+                                >
+                                  {sub.label}
+                                </Link>
+                              ))}
+                            </div>
+                          )}
+                        </div>
                       ))}
                     </div>
                   </div>
