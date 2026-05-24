@@ -124,6 +124,7 @@ body {
   top: 0;
   left: 0;
   right: 0;
+  z-index: 2;
   height: 4px;
   background: var(--card-accent, linear-gradient(90deg, var(--accent), var(--accent-warm)));
 }

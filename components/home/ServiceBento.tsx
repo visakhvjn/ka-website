@@ -1,7 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { getHeroImage } from "@/data/hero-images";
 import {
   useLocale,
   useServiceCategories,
@@ -53,35 +55,60 @@ export function ServiceBento() {
         </div>
 
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {serviceCategories.map((cat, index) => (
-            <Link
-              key={cat.slug}
-              href={`/services/${cat.slug}`}
-              className={cn("card-rich group flex flex-col p-6", cat.bentoClass)}
-              style={
-                {
-                  "--card-accent": cardAccents[index % cardAccents.length],
-                } as React.CSSProperties
-              }
-            >
-              <div
+          {serviceCategories.map((cat, index) => {
+            const heroImage = getHeroImage(cat.slug);
+
+            return (
+              <Link
+                key={cat.slug}
+                href={`/services/${cat.slug}`}
                 className={cn(
-                  "flex h-12 w-12 items-center justify-center rounded-xl transition-transform group-hover:scale-110",
-                  iconBg[index % iconBg.length],
+                  "card-rich group flex flex-col p-6",
+                  cat.bentoClass,
                 )}
+                style={
+                  {
+                    "--card-accent": cardAccents[index % cardAccents.length],
+                  } as React.CSSProperties
+                }
               >
-                <cat.icon className="h-6 w-6" />
-              </div>
-              <h3 className="mt-4 text-xl font-bold text-brand">{cat.title}</h3>
-              <p className="mt-2 flex-1 text-muted leading-relaxed">
-                {cat.shortDescription}
-              </p>
-              <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-accent group-hover:gap-2">
-                {m.common.learnMore}
-                <ArrowRight className="h-4 w-4" />
-              </span>
-            </Link>
-          ))}
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-[inherit]"
+                >
+                  <Image
+                    src={heroImage.src}
+                    alt=""
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover opacity-[0.45] transition-opacity duration-300 group-hover:opacity-[0.52]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/90 via-white/78 to-white/48" />
+                </div>
+
+                <div className="relative z-[1] flex flex-1 flex-col">
+                  <div
+                    className={cn(
+                      "flex h-12 w-12 items-center justify-center rounded-xl shadow-sm transition-transform group-hover:scale-110",
+                      iconBg[index % iconBg.length],
+                    )}
+                  >
+                    <cat.icon className="h-6 w-6" />
+                  </div>
+                  <h3 className="mt-4 text-xl font-bold text-brand [text-shadow:0_1px_3px_rgb(255_255_255_/_0.9)]">
+                    {cat.title}
+                  </h3>
+                  <p className="mt-2 flex-1 text-brand/75 leading-relaxed [text-shadow:0_1px_2px_rgb(255_255_255_/_0.85)]">
+                    {cat.shortDescription}
+                  </p>
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-accent [text-shadow:0_1px_2px_rgb(255_255_255_/_0.85)] group-hover:gap-2">
+                    {m.common.learnMore}
+                    <ArrowRight className="h-4 w-4" />
+                  </span>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </Container>
     </section>
