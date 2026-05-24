@@ -1,33 +1,15 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight, BarChart3, LineChart, Users } from "lucide-react";
-import { site } from "@/data/site";
+import { useLocale } from "@/components/layout/LocaleProvider";
 import { Container } from "@/components/ui/Container";
 
-const features = [
-  {
-    icon: Users,
-    title: "Expert advisory",
-    description:
-      "Senior consultants who translate complex regulations into clear, actionable guidance.",
-    color: "from-accent to-sky-400",
-  },
-  {
-    icon: BarChart3,
-    title: "Tax strategy",
-    description:
-      "Proactive VAT and corporate tax planning to protect your bottom line.",
-    color: "from-accent-warm to-amber-400",
-  },
-  {
-    icon: LineChart,
-    title: "Growth planning",
-    description:
-      "KPI dashboards and financial roadmaps aligned with long-term objectives.",
-    color: "from-accent-rose to-pink-400",
-  },
-];
+const featureIcons = [Users, BarChart3, LineChart];
 
 export function AboutTeaser() {
+  const { messages: m } = useLocale();
+
   return (
     <section className="py-20">
       <Container>
@@ -37,23 +19,16 @@ export function AboutTeaser() {
             <div className="relative p-10 lg:p-14">
               <div className="pointer-events-none absolute -right-20 top-0 h-64 w-64 rounded-full bg-accent/20 blur-3xl" />
               <p className="text-sm font-bold uppercase tracking-widest text-blue-300">
-                Who we are
+                {m.home.whoWeAre}
               </p>
               <h2 className="font-display mt-4 text-3xl font-extrabold text-white sm:text-4xl">
-                Your partner in financial excellence
+                {m.home.partnerTitle}
               </h2>
               <p className="mt-5 leading-relaxed text-blue-100/90">
-                At Innovative & Strategic F.Z.E, we deliver accounting, tax,
-                audit, and advisory services across the UAE, UK, and Georgia —
-                with practical solutions built for real business growth.
+                {m.home.partnerBody}
               </p>
               <ul className="mt-8 space-y-3">
-                {[
-                  "Expert accounting & bookkeeping",
-                  "Audit-ready reporting",
-                  "Tailored growth solutions",
-                  "Dedicated professional team",
-                ].map((item) => (
+                {m.home.partnerBullets.map((item) => (
                   <li
                     key={item}
                     className="flex items-center gap-3 text-blue-50"
@@ -69,30 +44,38 @@ export function AboutTeaser() {
                 href="/about"
                 className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-brand transition-colors hover:bg-blue-50"
               >
-                Learn more about us
+                {m.home.learnMoreAboutUs}
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
 
             <div className="grid gap-4 bg-brand-muted/50 p-6 sm:grid-cols-1 lg:p-8">
-              {features.map((feature) => (
-                <div
-                  key={feature.title}
-                  className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm"
-                >
+              {m.home.featureCards.map((feature, index) => {
+                const Icon = featureIcons[index] ?? Users;
+                const colors = [
+                  "from-accent to-sky-400",
+                  "from-accent-warm to-amber-400",
+                  "from-accent-rose to-pink-400",
+                ];
+                return (
                   <div
-                    className={`flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${feature.color} text-white shadow-lg`}
+                    key={feature.title}
+                    className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm"
                   >
-                    <feature.icon className="h-6 w-6" />
+                    <div
+                      className={`flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${colors[index % colors.length]} text-white shadow-lg`}
+                    >
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <h3 className="mt-4 text-lg font-bold text-white">
+                      {feature.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-blue-100/80">
+                      {feature.description}
+                    </p>
                   </div>
-                  <h3 className="mt-4 text-lg font-bold text-white">
-                    {feature.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-blue-100/80">
-                    {feature.description}
-                  </p>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>

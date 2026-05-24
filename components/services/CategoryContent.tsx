@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import type { ServiceCategory } from "@/data/services";
+import type { ServiceCategory } from "@/lib/i18n/services";
+import { useLocale } from "@/components/layout/LocaleProvider";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 
@@ -9,12 +12,14 @@ type CategoryContentProps = {
 };
 
 export function CategoryContent({ category }: CategoryContentProps) {
+  const { messages: m } = useLocale();
+
   return (
     <>
       <section className="py-16">
         <Container>
           <h2 className="mb-12 font-display text-2xl font-bold text-brand">
-            What we offer
+            {m.category.whatWeOffer}
           </h2>
           <div className="divide-y divide-border">
             {category.subServices.map((service, index) => (
@@ -47,17 +52,15 @@ export function CategoryContent({ category }: CategoryContentProps) {
           <div className="flex flex-col items-center justify-between gap-6 rounded-2xl bg-gradient-to-r from-brand to-brand-muted p-8 text-white shadow-xl sm:flex-row">
             <div>
               <h3 className="text-xl font-bold text-white">
-                Need help with {category.title.toLowerCase()}?
+                {m.category.needHelp} {category.title.toLowerCase()}?
               </h3>
-              <p className="mt-2 text-blue-100">
-                Speak with our specialists for a tailored proposal.
-              </p>
+              <p className="mt-2 text-blue-100">{m.category.needHelpBody}</p>
             </div>
             <Button
               href="/contact"
               className="bg-white text-brand hover:bg-amber-50"
             >
-              Get in touch
+              {m.common.getInTouch}
               <ArrowRight className="h-4 w-4" />
             </Button>
           </div>
@@ -66,7 +69,7 @@ export function CategoryContent({ category }: CategoryContentProps) {
               href="/services"
               className="text-sm font-semibold text-brand hover:text-brand-muted"
             >
-              ← Back to all services
+              {m.common.backToServices}
             </Link>
           </div>
         </Container>

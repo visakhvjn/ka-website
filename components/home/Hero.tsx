@@ -1,15 +1,25 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
-import { site } from "@/data/site";
 import { heroImages } from "@/data/hero-images";
-import { serviceCategories } from "@/data/services";
+import { site } from "@/data/site";
+import {
+  useLocale,
+  useServiceCategories,
+} from "@/components/layout/LocaleProvider";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 
 export function Hero() {
+  const { messages: m } = useLocale();
+  const serviceCategories = useServiceCategories();
   const highlights = serviceCategories.slice(0, 4);
-  const image = heroImages.home;
+  const image = {
+    src: heroImages.home.src,
+    alt: m.hero.home?.alt ?? heroImages.home.alt,
+  };
 
   return (
     <section className="relative min-h-[32rem] overflow-hidden text-white lg:min-h-[36rem]">
@@ -29,7 +39,6 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a1628]/50 via-transparent to-[#0f2340]/20" />
       </div>
 
-      {/* Ambient color orbs */}
       <div className="pointer-events-none absolute -left-32 top-20 z-[1] h-96 w-96 rounded-full bg-accent/20 blur-[100px]" />
       <div className="pointer-events-none absolute -right-20 top-32 z-[1] h-80 w-80 rounded-full bg-accent-warm/15 blur-[90px]" />
 
@@ -38,18 +47,18 @@ export function Hero() {
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium backdrop-blur-sm">
               <span className="flex h-2 w-2 rounded-full bg-accent-green animate-pulse" />
-              UAE · UK · Georgia
+              {m.home.regionBadge}
             </div>
 
             <h1 className="font-display mt-8 text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.25rem]">
-              Your success,{" "}
+              {m.home.heroTitle}{" "}
               <span className="bg-gradient-to-r from-sky-300 via-amber-300 to-pink-300 bg-clip-text text-transparent">
-                driven by our services
+                {m.home.heroHighlight}
               </span>
             </h1>
 
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-blue-100/90">
-              {site.description}
+              {m.site.description}
             </p>
 
             <div className="mt-10 flex flex-wrap gap-4">
@@ -58,7 +67,7 @@ export function Hero() {
                 size="lg"
                 className="bg-white text-brand shadow-lg shadow-black/20 hover:bg-blue-50"
               >
-                Book consultation
+                {m.common.bookConsultation}
                 <ArrowRight className="h-4 w-4" />
               </Button>
               <Button
@@ -67,7 +76,7 @@ export function Hero() {
                 size="lg"
                 className="border-white/30 bg-white/5 text-white hover:border-white/60 hover:bg-white/15"
               >
-                View all services
+                {m.common.viewAllServices}
               </Button>
             </div>
           </div>
@@ -83,12 +92,12 @@ export function Hero() {
                   className="h-16 w-auto rounded-lg bg-white p-1.5"
                 />
                 <span className="rounded-full bg-accent-green/20 px-3 py-1 text-xs font-semibold text-emerald-300">
-                  Trusted advisory
+                  {m.home.trustedAdvisory}
                 </span>
               </div>
 
               <p className="text-sm font-semibold uppercase tracking-wider text-blue-200/80">
-                Core services
+                {m.home.coreServices}
               </p>
               <ul className="mt-4 space-y-3">
                 {highlights.map((cat, i) => {
@@ -118,11 +127,7 @@ export function Hero() {
               </ul>
 
               <div className="mt-6 flex flex-wrap gap-4 border-t border-white/10 pt-6">
-                {[
-                  "FTA compliant",
-                  "Free zone experts",
-                  "Same-day response",
-                ].map((item) => (
+                {m.home.trustBadges.map((item) => (
                   <span
                     key={item}
                     className="flex items-center gap-1.5 text-xs text-blue-100/80"
@@ -134,7 +139,6 @@ export function Hero() {
               </div>
             </div>
 
-            {/* Decorative ring echoing logo */}
             <div className="pointer-events-none absolute -right-6 -top-6 h-32 w-32 rounded-full border-4 border-accent/30 opacity-60" />
             <div className="pointer-events-none absolute -bottom-4 -left-4 h-24 w-24 rounded-full border-4 border-accent-warm/30 opacity-50" />
           </div>

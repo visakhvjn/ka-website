@@ -1,12 +1,10 @@
 import Image from "next/image";
 import { Container } from "@/components/ui/Container";
-import type { HeroImage } from "@/data/hero-images";
-
 type PageHeroProps = {
   eyebrow?: string;
   title: string;
   description?: string;
-  image: HeroImage;
+  image: { src: string; alt: string };
 };
 
 export function PageHero({ eyebrow, title, description, image }: PageHeroProps) {

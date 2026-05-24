@@ -1,6 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { serviceCategories } from "@/data/services";
+import {
+  useLocale,
+  useServiceCategories,
+} from "@/components/layout/LocaleProvider";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { cn } from "@/lib/utils";
@@ -26,20 +31,23 @@ const iconBg = [
 ];
 
 export function ServiceBento() {
+  const { messages: m } = useLocale();
+  const serviceCategories = useServiceCategories();
+
   return (
     <section className="pattern-dots py-20">
       <Container>
         <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
           <SectionHeading
-            eyebrow="Our services"
-            title="Everything your business needs to stay compliant"
-            description="Seven practice areas covering tax, audit, accounting, and advisory — tailored for UAE mainland and free zone entities."
+            eyebrow={m.home.servicesEyebrow}
+            title={m.home.servicesTitle}
+            description={m.home.servicesDescription}
           />
           <Link
             href="/services"
             className="inline-flex shrink-0 items-center gap-2 rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-white shadow-md transition-colors hover:bg-brand-muted"
           >
-            View all services
+            {m.common.viewAllServices}
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
@@ -69,7 +77,7 @@ export function ServiceBento() {
                 {cat.shortDescription}
               </p>
               <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-accent group-hover:gap-2">
-                Learn more
+                {m.common.learnMore}
                 <ArrowRight className="h-4 w-4" />
               </span>
             </Link>

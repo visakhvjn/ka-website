@@ -1,15 +1,9 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import {
-  getCategoryBySlug,
-  serviceCategories,
-} from "@/data/services";
+import { serviceCategories } from "@/data/services";
 import { site } from "@/data/site";
-import { getHeroImage } from "@/data/hero-images";
-import { PageHero } from "@/components/layout/PageHero";
-import { CtaBanner } from "@/components/layout/CtaBanner";
-import { CategoryContent } from "@/components/services/CategoryContent";
-import { ScrollToHash } from "@/components/services/ScrollToHash";
+import { getCategoryBySlug } from "@/lib/i18n/services";
+import { getMessages } from "@/lib/i18n";
+import { ServicesCategoryPageContent } from "@/components/pages/ServicesCategoryPageContent";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -23,8 +17,9 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const category = getCategoryBySlug(slug);
-  if (!category) return { title: "Service Not Found" };
+  const m = getMessages("en");
+  const category = getCategoryBySlug(slug, "en");
+  if (!category) return { title: m.category.notFound };
 
   return {
     title: category.title,
@@ -32,23 +27,6 @@ export async function generateMetadata({
   };
 }
 
-export default async function ServiceCategoryPage({ params }: PageProps) {
-  const { slug } = await params;
-  const category = getCategoryBySlug(slug);
-
-  if (!category) notFound();
-
-  return (
-    <>
-      <ScrollToHash />
-      <PageHero
-        eyebrow="Services"
-        title={category.title}
-        description={category.shortDescription}
-        image={getHeroImage(category.slug)}
-      />
-      <CategoryContent category={category} />
-      <CtaBanner />
-    </>
-  );
+export default function ServiceCategoryPage() {
+  return <ServicesCategoryPageContent />;
 }

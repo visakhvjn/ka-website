@@ -5,16 +5,36 @@ import Link from "next/link";
 import { useState } from "react";
 import { Mail, MapPin, Menu, Phone, X } from "lucide-react";
 import { mainNav } from "@/data/navigation";
-import { serviceCategories } from "@/data/services";
 import { site } from "@/data/site";
+import { LanguageSelector } from "@/components/layout/LanguageSelector";
+import {
+  useLocale,
+  useServiceCategories,
+} from "@/components/layout/LocaleProvider";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
+
+const navKeysByHref: Record<string, keyof ReturnType<typeof useLocale>["messages"]["nav"]> = {
+  "/": "home",
+  "/about": "about",
+  "/services": "services",
+  "/packages": "packages",
+  "/faq": "faq",
+  "/contact": "contact",
+};
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const { messages: m } = useLocale();
+  const serviceCategories = useServiceCategories();
 
   const servicesItem = mainNav.find((item) => item.label === "Services");
+
+  function navLabel(href: string) {
+    const key = navKeysByHref[href];
+    return key ? m.nav[key] : href;
+  }
 
   return (
     <header className="sticky top-0 z-40 shadow-lg shadow-brand/10">
@@ -24,7 +44,7 @@ export function Header() {
           <div className="flex items-center gap-6">
             <span className="flex items-center gap-1.5">
               <MapPin className="h-3.5 w-3.5 text-amber-400" />
-              {site.contact.locationShort}
+              {m.site.locationShort}
             </span>
             <a
               href={`mailto:${site.contact.email}`}
@@ -64,14 +84,14 @@ export function Header() {
             {mainNav.map((item) =>
               item.label === "Services" && "children" in item ? (
                 <div
-                  key={item.label}
+                  key={item.href}
                   onMouseEnter={() => setServicesOpen(true)}
                 >
                   <Link
                     href={item.href}
                     className="rounded-full px-4 py-2 text-sm font-medium text-blue-100 transition-colors hover:bg-white/10 hover:text-white"
                   >
-                    {item.label}
+                    {navLabel(item.href)}
                   </Link>
                 </div>
               ) : (
@@ -80,34 +100,38 @@ export function Header() {
                   href={item.href}
                   className="rounded-full px-4 py-2 text-sm font-medium text-blue-100 transition-colors hover:bg-white/10 hover:text-white"
                 >
-                  {item.label}
+                  {navLabel(item.href)}
                 </Link>
               ),
             )}
           </div>
 
-          <div className="hidden lg:block">
+          <div className="hidden items-center gap-3 lg:flex">
+            <LanguageSelector />
             <Button
               href="/contact"
               size="sm"
               className="bg-white text-brand hover:bg-amber-50"
             >
-              Book consultation
+              {m.common.bookConsultation}
             </Button>
           </div>
 
-          <button
-            type="button"
-            className="rounded-full p-2 text-white hover:bg-white/10 lg:hidden"
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-            onClick={() => setMobileOpen(!mobileOpen)}
-          >
-            {mobileOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
-          </button>
+          <div className="flex items-center gap-2 lg:hidden">
+            <LanguageSelector />
+            <button
+              type="button"
+              className="rounded-full p-2 text-white hover:bg-white/10"
+              aria-label={mobileOpen ? m.common.closeMenu : m.common.openMenu}
+              onClick={() => setMobileOpen(!mobileOpen)}
+            >
+              {mobileOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </button>
+          </div>
         </div>
 
         <div
@@ -156,7 +180,7 @@ export function Header() {
                 className="text-sm font-semibold text-accent hover:text-brand"
                 onClick={() => setServicesOpen(false)}
               >
-                View all services →
+                {m.common.viewAllServices}
               </Link>
             </div>
           </div>
@@ -169,38 +193,36 @@ export function Header() {
                 item.label === "Services" &&
                 servicesItem &&
                 "children" in servicesItem ? (
-                  <div key={item.label}>
+                  <div key={item.href}>
                     <Link
                       href={item.href}
                       className="block rounded-lg px-3 py-2 font-semibold text-white"
                       onClick={() => setMobileOpen(false)}
                     >
-                      {item.label}
+                      {navLabel(item.href)}
                     </Link>
                     <div className="ml-3 flex flex-col gap-2 border-l-2 border-amber-400/50 pl-3">
-                      {servicesItem.children.map((child) => (
-                        <div key={child.href}>
+                      {serviceCategories.map((cat) => (
+                        <div key={cat.slug}>
                           <Link
-                            href={child.href}
+                            href={`/services/${cat.slug}`}
                             className="block rounded-lg px-3 py-2 text-sm font-semibold text-white hover:bg-white/10"
                             onClick={() => setMobileOpen(false)}
                           >
-                            {child.label}
+                            {cat.title}
                           </Link>
-                          {"subServices" in child && (
-                            <div className="ml-3 flex flex-col gap-0.5 border-l border-white/20 pl-3">
-                              {child.subServices.map((sub) => (
-                                <Link
-                                  key={sub.href}
-                                  href={sub.href}
-                                  className="rounded-lg px-3 py-1.5 text-xs text-blue-100/90 hover:bg-white/10"
-                                  onClick={() => setMobileOpen(false)}
-                                >
-                                  {sub.label}
-                                </Link>
-                              ))}
-                            </div>
-                          )}
+                          <div className="ml-3 flex flex-col gap-0.5 border-l border-white/20 pl-3">
+                            {cat.subServices.map((sub) => (
+                              <Link
+                                key={sub.id}
+                                href={`/services/${cat.slug}#${sub.id}`}
+                                className="rounded-lg px-3 py-1.5 text-xs text-blue-100/90 hover:bg-white/10"
+                                onClick={() => setMobileOpen(false)}
+                              >
+                                {sub.title}
+                              </Link>
+                            ))}
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -212,7 +234,7 @@ export function Header() {
                     className="rounded-lg px-3 py-2 font-medium text-blue-100 hover:bg-white/10"
                     onClick={() => setMobileOpen(false)}
                   >
-                    {item.label}
+                    {navLabel(item.href)}
                   </Link>
                 ),
               )}
@@ -220,7 +242,7 @@ export function Header() {
                 href="/contact"
                 className="mt-3 w-full bg-white text-brand"
               >
-                Book consultation
+                {m.common.bookConsultation}
               </Button>
             </div>
           </div>

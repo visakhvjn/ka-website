@@ -1,8 +1,13 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
-import { footerNav } from "@/data/navigation";
 import { site } from "@/data/site";
+import {
+  useLocale,
+  useServiceCategories,
+} from "@/components/layout/LocaleProvider";
 import { Container } from "@/components/ui/Container";
 
 function LinkedinIcon({ className }: { className?: string }) {
@@ -13,8 +18,18 @@ function LinkedinIcon({ className }: { className?: string }) {
   );
 }
 
+const quickLinkHrefs = [
+  { href: "/about", key: "aboutUs" as const },
+  { href: "/services", key: "services" as const },
+  { href: "/packages", key: "packages" as const },
+  { href: "/faq", key: "faq" as const },
+  { href: "/contact", key: "contact" as const },
+];
+
 export function Footer() {
   const year = new Date().getFullYear();
+  const { messages: m } = useLocale();
+  const serviceCategories = useServiceCategories();
 
   return (
     <footer className="border-t border-brand-muted bg-brand text-white/80">
@@ -31,14 +46,14 @@ export function Footer() {
               />
             </Link>
             <p className="mt-4 text-sm leading-relaxed text-white/60">
-              {site.description}
+              {m.site.description}
             </p>
             <div className="mt-6 flex gap-3">
               <a
                 href={site.social.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="LinkedIn"
+                aria-label={m.common.linkedin}
                 className="rounded-full bg-white/10 p-2.5 transition-colors hover:bg-accent"
               >
                 <LinkedinIcon className="h-5 w-5" />
@@ -48,16 +63,16 @@ export function Footer() {
 
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">
-              Quick Links
+              {m.footer.quickLinks}
             </h3>
             <ul className="space-y-2">
-              {footerNav.quickLinks.map((link) => (
+              {quickLinkHrefs.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
                     className="text-sm text-white/60 transition-colors hover:text-accent-warm"
                   >
-                    {link.label}
+                    {m.nav[link.key]}
                   </Link>
                 </li>
               ))}
@@ -66,16 +81,16 @@ export function Footer() {
 
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">
-              Services
+              {m.footer.services}
             </h3>
             <ul className="space-y-2">
-              {footerNav.services.map((link) => (
-                <li key={link.href}>
+              {serviceCategories.slice(0, 5).map((cat) => (
+                <li key={cat.slug}>
                   <Link
-                    href={link.href}
+                    href={`/services/${cat.slug}`}
                     className="text-sm text-white/60 transition-colors hover:text-accent-warm"
                   >
-                    {link.label}
+                    {cat.title}
                   </Link>
                 </li>
               ))}
@@ -84,7 +99,7 @@ export function Footer() {
 
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white">
-              Contact
+              {m.footer.contact}
             </h3>
             <ul className="space-y-4 text-sm">
               <li>
@@ -105,17 +120,24 @@ export function Footer() {
                   {site.contact.phoneDisplay}
                 </a>
               </li>
-              <li className="flex items-start gap-2">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent-warm" />
-                {site.contact.address}
+              <li>
+                <a
+                  href={site.contact.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-2 transition-colors hover:text-white"
+                >
+                  <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent-warm" />
+                  {m.site.address}
+                </a>
               </li>
             </ul>
-            <p className="mt-4 text-xs text-white/50">{site.contact.hours}</p>
+            <p className="mt-4 text-xs text-white/50">{m.site.hours}</p>
           </div>
         </div>
 
         <div className="mt-12 border-t border-white/10 pt-8 text-center text-sm text-white/50">
-          © {year} {site.name}. All rights reserved.
+          © {year} {site.name}. {m.common.allRightsReserved}
         </div>
       </Container>
     </footer>

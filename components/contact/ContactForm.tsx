@@ -2,11 +2,16 @@
 
 import { useState } from "react";
 import { Send } from "lucide-react";
-import { serviceCategories } from "@/data/services";
 import { site } from "@/data/site";
+import {
+  useLocale,
+  useServiceCategories,
+} from "@/components/layout/LocaleProvider";
 import { Button } from "@/components/ui/Button";
 
 export function ContactForm() {
+  const { messages: m } = useLocale();
+  const serviceCategories = useServiceCategories();
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
     name: "",
@@ -19,10 +24,10 @@ export function ContactForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const subject = encodeURIComponent(
-      `Consultation request from ${form.name}`,
+      `${m.contactForm.mailSubject} ${form.name}`,
     );
     const body = encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone}\nService: ${form.service}\n\nMessage:\n${form.message}`,
+      `${m.contactForm.mailName}: ${form.name}\n${m.contactForm.mailEmail}: ${form.email}\n${m.contactForm.mailPhone}: ${form.phone}\n${m.contactForm.mailService}: ${form.service}\n\n${m.contactForm.mailMessage}:\n${form.message}`,
     );
     window.location.href = `mailto:${site.contact.email}?subject=${subject}&body=${body}`;
     setSubmitted(true);
@@ -32,11 +37,10 @@ export function ContactForm() {
     return (
       <div className="rounded-2xl border border-border bg-surface-muted p-8 text-center">
         <p className="text-lg font-semibold text-brand">
-          Thank you for reaching out!
+          {m.contactForm.successTitle}
         </p>
         <p className="mt-2 text-muted">
-          Your email client should open shortly. If it doesn&apos;t, email us
-          directly at{" "}
+          {m.contactForm.successBody}{" "}
           <a
             href={`mailto:${site.contact.email}`}
             className="font-semibold text-brand"
@@ -49,7 +53,7 @@ export function ContactForm() {
           onClick={() => setSubmitted(false)}
           className="mt-4 text-sm font-medium text-brand hover:underline"
         >
-          Send another message
+          {m.common.sendAnotherMessage}
         </button>
       </div>
     );
@@ -63,7 +67,7 @@ export function ContactForm() {
             htmlFor="name"
             className="mb-2 block text-sm font-medium text-muted"
           >
-            Full name *
+            {m.contactForm.nameLabel}
           </label>
           <input
             id="name"
@@ -72,7 +76,7 @@ export function ContactForm() {
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
             className="w-full rounded-xl border border-border px-4 py-3 text-brand outline-none transition-colors focus:border-accent focus:ring-2 focus:ring-accent/20"
-            placeholder="Your name"
+            placeholder={m.contactForm.namePlaceholder}
           />
         </div>
         <div>
@@ -80,7 +84,7 @@ export function ContactForm() {
             htmlFor="email"
             className="mb-2 block text-sm font-medium text-muted"
           >
-            Email *
+            {m.contactForm.emailLabel}
           </label>
           <input
             id="email"
@@ -89,7 +93,7 @@ export function ContactForm() {
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
             className="w-full rounded-xl border border-border px-4 py-3 text-brand outline-none transition-colors focus:border-accent focus:ring-2 focus:ring-accent/20"
-            placeholder="you@company.com"
+            placeholder={m.contactForm.emailPlaceholder}
           />
         </div>
       </div>
@@ -100,7 +104,7 @@ export function ContactForm() {
             htmlFor="phone"
             className="mb-2 block text-sm font-medium text-muted"
           >
-            Phone
+            {m.contactForm.phoneLabel}
           </label>
           <input
             id="phone"
@@ -108,7 +112,7 @@ export function ContactForm() {
             value={form.phone}
             onChange={(e) => setForm({ ...form, phone: e.target.value })}
             className="w-full rounded-xl border border-border px-4 py-3 text-brand outline-none transition-colors focus:border-accent focus:ring-2 focus:ring-accent/20"
-            placeholder="+971 56 237 1945"
+            placeholder={m.contactForm.phonePlaceholder}
           />
         </div>
         <div>
@@ -116,7 +120,7 @@ export function ContactForm() {
             htmlFor="service"
             className="mb-2 block text-sm font-medium text-muted"
           >
-            Service interest
+            {m.contactForm.serviceLabel}
           </label>
           <select
             id="service"
@@ -124,13 +128,13 @@ export function ContactForm() {
             onChange={(e) => setForm({ ...form, service: e.target.value })}
             className="w-full rounded-xl border border-border px-4 py-3 text-brand outline-none transition-colors focus:border-accent focus:ring-2 focus:ring-accent/20"
           >
-            <option value="">Select a service</option>
+            <option value="">{m.contactForm.servicePlaceholder}</option>
             {serviceCategories.map((cat) => (
               <option key={cat.slug} value={cat.title}>
                 {cat.title}
               </option>
             ))}
-            <option value="Other">Other</option>
+            <option value={m.common.other}>{m.common.other}</option>
           </select>
         </div>
       </div>
@@ -140,7 +144,7 @@ export function ContactForm() {
           htmlFor="message"
           className="mb-2 block text-sm font-medium text-muted"
         >
-          Message *
+          {m.contactForm.messageLabel}
         </label>
         <textarea
           id="message"
@@ -149,12 +153,12 @@ export function ContactForm() {
           value={form.message}
           onChange={(e) => setForm({ ...form, message: e.target.value })}
           className="w-full resize-none rounded-xl border border-border px-4 py-3 text-brand outline-none transition-colors focus:border-accent focus:ring-2 focus:ring-accent/20"
-          placeholder="Tell us about your business and how we can help..."
+          placeholder={m.contactForm.messagePlaceholder}
         />
       </div>
 
       <Button type="submit" size="lg">
-        Send message
+        {m.contactForm.submit}
         <Send className="h-4 w-4" />
       </Button>
     </form>

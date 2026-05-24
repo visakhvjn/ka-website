@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { LocaleProvider } from "@/components/layout/LocaleProvider";
 import { WhatsAppFloat } from "@/components/layout/WhatsAppFloat";
+import { getServerLocale } from "@/lib/i18n/server";
 import { site } from "@/data/site";
 import "./globals.css";
 
@@ -42,21 +44,26 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const initialLocale = await getServerLocale();
+
   return (
     <html
-      lang="en"
+      lang={initialLocale}
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} ${plusJakarta.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <WhatsAppFloat />
+        <LocaleProvider initialLocale={initialLocale}>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <WhatsAppFloat />
+        </LocaleProvider>
       </body>
     </html>
   );

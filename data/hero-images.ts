@@ -67,3 +67,11 @@ export type HeroImageKey = keyof typeof heroImages;
 export function getHeroImage(key: string): HeroImage {
   return heroImages[key as HeroImageKey] ?? heroImages.services;
 }
+
+export function getHeroImageWithAlt(
+  key: string,
+  altByKey: Record<string, { alt: string }>,
+): HeroImage {
+  const base = getHeroImage(key);
+  return { src: base.src, alt: altByKey[key]?.alt ?? base.alt };
+}

@@ -14,11 +14,13 @@ export const site = {
     phone: "+971562371945",
     phoneDisplay: "+971 56 237 1945",
     whatsapp: "971562371945",
-    address: "Ajman Boulevard-A Building, Ajman Free Zone, UAE",
-    locationShort: "Ajman Free Zone, UAE",
+    address:
+      "Sheikh Rashid Bin Saeed Al Maktoum Street, Al Bustan, Ajman, UAE",
+    locationShort: "Al Bustan, Ajman, UAE",
     hours: "Monday – Saturday: 9:00 AM – 7:00 PM",
+    mapsUrl: "https://maps.app.goo.gl/rVeBvmf5JEpWFGo17",
     mapEmbedUrl:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3608.5!2d55.478!3d25.405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f69c8b8b8b8b9%3A0x0!2zQWptYW4gRnJlZSBab25l!5e0!3m2!1sen!2sae!4v1",
+      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3613.876!2d55.4528963!3d25.4190812!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6639ff0cca94f4b7%3A0x34fd80947060c777!2sInnovative%20%26%20Strategic%20-%20F.Z.E!5e0!3m2!1sen!2sae!4v1748035200000!5m2!1sen!2sae",
   },
 
   social: {

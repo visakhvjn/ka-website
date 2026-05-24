@@ -1,5 +1,7 @@
+"use client";
+
 import Link from "next/link";
-import { serviceCategories } from "@/data/services";
+import { useLocale, useServiceCategories } from "@/components/layout/LocaleProvider";
 import { Container } from "@/components/ui/Container";
 
 const chipStyles = [
@@ -13,11 +15,14 @@ const chipStyles = [
 ];
 
 export function ServiceChips() {
+  const { messages: m } = useLocale();
+  const serviceCategories = useServiceCategories();
+
   return (
     <section className="bg-background py-8">
       <Container>
         <p className="mb-4 text-center text-sm font-semibold uppercase tracking-wider text-muted">
-          Explore by service
+          {m.home.exploreByService}
         </p>
         <div className="flex gap-3 overflow-x-auto pb-2">
           {serviceCategories.map((cat, i) => (

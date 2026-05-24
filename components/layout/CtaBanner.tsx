@@ -1,3 +1,6 @@
+"use client";
+
+import { useLocale } from "@/components/layout/LocaleProvider";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 
@@ -6,10 +9,11 @@ type CtaBannerProps = {
   description?: string;
 };
 
-export function CtaBanner({
-  title = "Ready to simplify your finances?",
-  description = "Schedule a free consultation with our UAE specialists. We'll assess your needs and recommend the right service package.",
-}: CtaBannerProps) {
+export function CtaBanner({ title, description }: CtaBannerProps) {
+  const { messages: m } = useLocale();
+  const heading = title ?? m.cta.title;
+  const body = description ?? m.cta.description;
+
   return (
     <section className="py-20">
       <Container>
@@ -19,10 +23,10 @@ export function CtaBanner({
           <div className="pointer-events-none absolute -bottom-16 -left-16 h-64 w-64 rounded-full bg-accent-rose/30 blur-3xl" />
           <div className="relative">
             <h2 className="font-display text-3xl font-bold text-white sm:text-4xl">
-              {title}
+              {heading}
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-lg text-blue-100">
-              {description}
+              {body}
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
               <Button
@@ -30,7 +34,7 @@ export function CtaBanner({
                 size="lg"
                 className="bg-white text-brand shadow-lg hover:bg-amber-50"
               >
-                Book consultation
+                {m.common.bookConsultation}
               </Button>
               <Button
                 href="/services"
@@ -38,7 +42,7 @@ export function CtaBanner({
                 size="lg"
                 className="border-white/50 bg-white/10 text-white hover:bg-white/20"
               >
-                Explore services
+                {m.common.exploreServices}
               </Button>
             </div>
           </div>

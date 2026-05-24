@@ -1,34 +1,18 @@
 import type { Metadata } from "next";
-import { faqs } from "@/data/faq";
 import { site } from "@/data/site";
-import { heroImages } from "@/data/hero-images";
-import { PageHero } from "@/components/layout/PageHero";
-import { CtaBanner } from "@/components/layout/CtaBanner";
-import { Container } from "@/components/ui/Container";
-import { Accordion } from "@/components/ui/Accordion";
+import { getMessages } from "@/lib/i18n";
+import { FaqPageContent } from "@/components/pages/FaqPageContent";
+
+const m = getMessages("en");
 
 export const metadata: Metadata = {
-  title: "FAQ",
-  description: `Frequently asked questions about ${site.name} services, technology, and UAE compliance.`,
+  title: m.faqPage.metaTitle,
+  description: m.faqPage.metaDescription.replace(
+    "Innovative & Strategic F.Z.E",
+    site.name,
+  ),
 };
 
 export default function FaqPage() {
-  return (
-    <>
-      <PageHero
-        eyebrow="FAQ"
-        title="Questions & answers"
-        description="Everything you need to know about working with Innovative & Strategic F.Z.E."
-        image={heroImages.faq}
-      />
-
-      <section className="py-20">
-        <Container className="max-w-3xl">
-          <Accordion items={faqs} defaultOpen={faqs[0]?.id} />
-        </Container>
-      </section>
-
-      <CtaBanner />
-    </>
-  );
+  return <FaqPageContent />;
 }
