@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { site } from "@/data/site";
+import { BrandMark } from "@/components/layout/BrandMark";
 import {
   useLocale,
   useServiceCategories,
@@ -36,15 +36,14 @@ export function Footer() {
       <Container className="py-16">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-1">
-            <Link href="/" className="inline-block">
-              <Image
-                src="/logo.png"
-                alt={site.name}
-                width={200}
-                height={200}
-                className="h-20 w-auto rounded-xl bg-white p-2.5"
-              />
-            </Link>
+            <BrandMark
+              link
+              tagline={m.site.tagline}
+              imageClassName="h-20 p-2.5"
+              nameClassName="text-lg text-white"
+              taglineClassName="text-sm text-white/70"
+              className="rounded-xl"
+            />
             <p className="mt-4 text-sm leading-relaxed text-white/60">
               {m.site.description}
             </p>

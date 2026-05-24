@@ -23,7 +23,7 @@ export function ServicesCategoryPageContent() {
       <PageHero
         eyebrow={m.category.eyebrow}
         title={category.title}
-        description={category.shortDescription}
+        description={category.description}
         image={getHeroImageWithAlt(category.slug, m.hero)}
       />
       <CategoryContent category={category} />

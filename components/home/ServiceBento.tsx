@@ -54,7 +54,7 @@ export function ServiceBento() {
           </Link>
         </div>
 
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid auto-rows-fr gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {serviceCategories.map((cat, index) => {
             const heroImage = getHeroImage(cat.slug);
 
@@ -62,10 +62,7 @@ export function ServiceBento() {
               <Link
                 key={cat.slug}
                 href={`/services/${cat.slug}`}
-                className={cn(
-                  "card-rich group flex flex-col p-6",
-                  cat.bentoClass,
-                )}
+                className="card-rich group flex h-full flex-col p-6"
                 style={
                   {
                     "--card-accent": cardAccents[index % cardAccents.length],
@@ -99,7 +96,10 @@ export function ServiceBento() {
                     {cat.title}
                   </h3>
                   <p className="mt-2 flex-1 text-brand/75 leading-relaxed [text-shadow:0_1px_2px_rgb(255_255_255_/_0.85)]">
-                    {cat.shortDescription}
+                    {cat.description}
+                  </p>
+                  <p className="mt-3 text-sm text-brand/65 [text-shadow:0_1px_2px_rgb(255_255_255_/_0.85)]">
+                    {cat.subServices.length} {m.common.servicesIncluded}
                   </p>
                   <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-accent [text-shadow:0_1px_2px_rgb(255_255_255_/_0.85)] group-hover:gap-2">
                     {m.common.learnMore}

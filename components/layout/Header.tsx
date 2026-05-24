@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Mail, MapPin, Menu, Phone, X } from "lucide-react";
 import { mainNav } from "@/data/navigation";
 import { site } from "@/data/site";
+import { BrandMark } from "@/components/layout/BrandMark";
 import { LanguageSelector } from "@/components/layout/LanguageSelector";
 import {
   useLocale,
@@ -69,16 +69,12 @@ export function Header() {
         onMouseLeave={() => setServicesOpen(false)}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-          <Link href="/" className="flex shrink-0 items-center">
-            <Image
-              src="/logo.png"
-              alt={site.name}
-              width={200}
-              height={200}
-              priority
-              className="h-12 w-auto rounded-lg bg-white p-1 sm:h-14"
-            />
-          </Link>
+          <BrandMark
+            link
+            tagline={m.site.tagline}
+            nameClassName="text-sm font-bold text-white sm:text-base lg:text-lg"
+            taglineClassName="hidden text-blue-200/85 sm:block"
+          />
 
           <div className="hidden items-center gap-1 lg:flex">
             {mainNav.map((item) =>

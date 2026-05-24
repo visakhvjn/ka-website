@@ -15,13 +15,11 @@ import type { ServiceMessages } from "@/lib/i18n/types";
 const categoryConfig: {
   slug: string;
   icon: LucideIcon;
-  bentoClass?: string;
   subIds: string[];
 }[] = [
   {
     slug: "corporate-tax",
     icon: Building2,
-    bentoClass: "md:col-span-2 md:row-span-2",
     subIds: [
       "implementation",
       "registration",
@@ -48,7 +46,6 @@ const categoryConfig: {
   {
     slug: "accounting-bookkeeping",
     icon: Calculator,
-    bentoClass: "md:col-span-2",
     subIds: [
       "accounting",
       "bookkeeping",
@@ -101,7 +98,6 @@ export type ServiceCategory = {
   shortDescription: string;
   description: string;
   icon: LucideIcon;
-  bentoClass?: string;
   subServices: { id: string; title: string; description: string }[];
 };
 
@@ -113,7 +109,6 @@ function buildCategories(
     return {
       slug: config.slug,
       icon: config.icon,
-      bentoClass: config.bentoClass,
       title: text.title,
       shortDescription: text.shortDescription,
       description: text.description,

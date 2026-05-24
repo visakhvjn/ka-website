@@ -2,7 +2,7 @@ export const site = {
   name: "Innovative & Strategic F.Z.E",
   shortName: "Innovative & Strategic",
   legalName: "INNOVATIVE & STRATEGIC F.Z.E",
-  tagline: "Your success, driven by our services",
+  tagline: "Strategic Solutions for Modern Businesses",
   description:
     "Innovative & Strategic F.Z.E is a professional management consultancy delivering practical, cost-efficient business solutions across the UAE, UK, and Georgia — including accounting, VAT, corporate tax, audit, and advisory services.",
   url: "https://www.innovativestrategic.com",
@@ -15,7 +15,7 @@ export const site = {
     phoneDisplay: "+971 56 237 1945",
     whatsapp: "971562371945",
     address:
-      "Sheikh Rashid Bin Saeed Al Maktoum Street, Al Bustan, Ajman, UAE",
+      "Sheikh Rashid Bin Saeed Al Maktoum St - Al Bustan - ليوارة 1 - Ajman - United Arab Emirates",
     locationShort: "Al Bustan, Ajman, UAE",
     hours: "Monday – Saturday: 9:00 AM – 7:00 PM",
     mapsUrl: "https://maps.app.goo.gl/rVeBvmf5JEpWFGo17",

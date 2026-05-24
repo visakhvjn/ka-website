@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { heroImages } from "@/data/hero-images";
-import { site } from "@/data/site";
+import { BrandMark } from "@/components/layout/BrandMark";
 import {
   useLocale,
   useServiceCategories,
@@ -83,13 +83,12 @@ export function Hero() {
 
           <div className="relative">
             <div className="glass-panel rounded-2xl p-6 lg:p-8">
-              <div className="mb-6 flex items-center justify-between">
-                <Image
-                  src="/logo.png"
-                  alt={site.name}
-                  width={120}
-                  height={120}
-                  className="h-16 w-auto rounded-lg bg-white p-1.5"
+              <div className="mb-6 flex items-center justify-between gap-4">
+                <BrandMark
+                  tagline={m.site.tagline}
+                  imageClassName="h-16 p-1.5"
+                  nameClassName="text-base text-white sm:text-lg"
+                  taglineClassName="text-xs text-blue-200/85 sm:text-sm"
                 />
                 <span className="rounded-full bg-accent-green/20 px-3 py-1 text-xs font-semibold text-emerald-300">
                   {m.home.trustedAdvisory}
