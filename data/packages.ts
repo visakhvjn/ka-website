@@ -3,8 +3,6 @@ export const packages = [
     id: "starter",
     name: "Starter",
     description: "Essential compliance for new and small businesses",
-    price: "From AED 1,500",
-    period: "/ month",
     highlighted: false,
     features: [
       "Monthly bookkeeping (up to 50 transactions)",
@@ -19,8 +17,6 @@ export const packages = [
     id: "growth",
     name: "Growth",
     description: "Comprehensive support for scaling companies",
-    price: "From AED 3,500",
-    period: "/ month",
     highlighted: true,
     features: [
       "Full bookkeeping & reconciliation",
@@ -36,8 +32,6 @@ export const packages = [
     id: "enterprise",
     name: "Enterprise",
     description: "End-to-end finance function for established firms",
-    price: "Custom pricing",
-    period: "",
     highlighted: false,
     features: [
       "Outsourced finance department",
@@ -48,6 +42,6 @@ export const packages = [
       "Multi-entity consolidation",
       "Custom integrations & automation",
     ],
-    cta: "Book consultation",
+    cta: "Request quote",
   },
 ] as const;

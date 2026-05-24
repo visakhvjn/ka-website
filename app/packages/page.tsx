@@ -6,6 +6,7 @@ import { heroImages } from "@/data/hero-images";
 import { PageHero } from "@/components/layout/PageHero";
 import { CtaBanner } from "@/components/layout/CtaBanner";
 import { Container } from "@/components/ui/Container";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
@@ -26,6 +27,11 @@ export default function PackagesPage() {
 
       <section className="pattern-dots py-20">
         <Container>
+          <SectionHeading
+            title="Affordable Packages"
+            align="center"
+            className="mb-12"
+          />
           <div className="grid gap-8 lg:grid-cols-3">
             {packages.map((pkg, i) => (
               <div
@@ -52,14 +58,6 @@ export default function PackagesPage() {
                 )}
                 <h3 className="text-2xl font-bold text-brand">{pkg.name}</h3>
                 <p className="mt-2 text-muted">{pkg.description}</p>
-                <p className="mt-6">
-                  <span className="text-3xl font-bold text-brand">
-                    {pkg.price}
-                  </span>
-                  {pkg.period && (
-                    <span className="text-muted">{pkg.period}</span>
-                  )}
-                </p>
                 <ul className="mt-8 flex-1 space-y-3">
                   {pkg.features.map((feature) => (
                     <li
