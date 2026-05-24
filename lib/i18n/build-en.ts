@@ -205,10 +205,13 @@ export function buildEnglishMessages(): Messages {
       servicePlaceholder: "Select a service",
       messageLabel: "Message *",
       messagePlaceholder: "Tell us about your business and how we can help...",
-      submit: "Send message",
-      successTitle: "Thank you for reaching out!",
-      successBody:
-        "Your email client should open shortly. If it doesn't, email us directly at",
+    submit: "Send message",
+    submitting: "Sending...",
+    successTitle: "Thank you for reaching out!",
+    successBody:
+      "We've received your message and will get back to you shortly at the email you provided.",
+    errorBody:
+      "Something went wrong while sending your message. Please try again or email us directly at",
       mailSubject: "Consultation request from",
       mailName: "Name",
       mailEmail: "Email",

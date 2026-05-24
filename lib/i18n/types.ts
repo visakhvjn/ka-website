@@ -150,8 +150,10 @@ export type Messages = {
     messageLabel: string;
     messagePlaceholder: string;
     submit: string;
+    submitting: string;
     successTitle: string;
     successBody: string;
+    errorBody: string;
     mailSubject: string;
     mailName: string;
     mailEmail: string;
