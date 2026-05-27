@@ -30,20 +30,44 @@ export function ContactForm() {
     setSubmitting(true);
     setError(null);
 
+    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+
+    if (!accessKey) {
+      setError(m.contactForm.errorBody);
+      setSubmitting(false);
+      return;
+    }
+
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
         body: JSON.stringify({
-          ...form,
+          access_key: accessKey,
           subject: `${m.contactForm.mailSubject} ${form.name}`,
+          from_name: site.shortName,
+          name: form.name.trim(),
+          email: form.email.trim(),
+          replyto: form.email.trim(),
+          phone: form.phone.trim() || "Not provided",
+          service: form.service.trim() || "Not specified",
+          message: form.message.trim(),
         }),
       });
 
-      const result = (await response.json()) as {
-        success?: boolean;
-        message?: string;
-      };
+      let result: { success?: boolean; message?: string };
+
+      try {
+        result = (await response.json()) as {
+          success?: boolean;
+          message?: string;
+        };
+      } catch {
+        throw new Error(m.contactForm.errorBody);
+      }
 
       if (!response.ok || !result.success) {
         throw new Error(result.message ?? m.contactForm.errorBody);
