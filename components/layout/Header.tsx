@@ -11,6 +11,7 @@ import {
   useLocale,
   useServiceCategories,
 } from "@/components/layout/LocaleProvider";
+import { useCalendly } from "@/components/calendly/CalendlyProvider";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
@@ -27,9 +28,15 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const { messages: m } = useLocale();
+  const { openBooking } = useCalendly();
   const serviceCategories = useServiceCategories();
 
   const servicesItem = mainNav.find((item) => item.label === "Services");
+
+  function handleBookOnline() {
+    setMobileOpen(false);
+    openBooking();
+  }
 
   function navLabel(href: string) {
     const key = navKeysByHref[href];
@@ -105,11 +112,11 @@ export function Header() {
           <div className="hidden items-center gap-3 lg:flex">
             <LanguageSelector />
             <Button
-              href="/contact"
               size="sm"
               className="bg-white text-brand hover:bg-amber-50"
+              onClick={handleBookOnline}
             >
-              {m.common.bookConsultation}
+              {m.contactForm.bookOnlineAppointment}
             </Button>
           </div>
 
@@ -235,10 +242,10 @@ export function Header() {
                 ),
               )}
               <Button
-                href="/contact"
                 className="mt-3 w-full bg-white text-brand"
+                onClick={handleBookOnline}
               >
-                {m.common.bookConsultation}
+                {m.contactForm.bookOnlineAppointment}
               </Button>
             </div>
           </div>
