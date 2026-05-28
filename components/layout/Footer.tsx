@@ -131,7 +131,9 @@ export function Footer() {
                 </a>
               </li>
             </ul>
-            <p className="mt-4 text-xs text-white/50">{m.site.hours}</p>
+            <p className="mt-4 whitespace-pre-line text-xs text-white/50">
+              {m.site.hours}
+            </p>
           </div>
         </div>
 

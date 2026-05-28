@@ -48,7 +48,8 @@ export const ka: Messages = {
     address:
       "Sheikh Rashid Bin Saeed Al Maktoum St - Al Bustan - Liwarah 1 - Ajman - United Arab Emirates",
     locationShort: "Al Bustan, Ajman, UAE",
-    hours: "ორშაბათი – შაბათი: 9:00 – 17:00",
+    hours:
+      "ორშაბათი – ხუთშაბათი: 9:00 – 17:00\nპარასკევი – შაბათი: 10:00 – 14:00",
     stats: [
       { label: "TRN რეგისტრაციები" },
       { label: "წარდგენილი VAT დეკლარაციები" },

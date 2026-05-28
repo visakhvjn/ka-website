@@ -103,7 +103,7 @@ export function ContactPageContent() {
                       <p className="text-sm font-medium text-muted">
                         {m.contactPage.hours}
                       </p>
-                      <p className="font-semibold text-brand">
+                      <p className="whitespace-pre-line font-semibold text-brand">
                         {m.site.hours}
                       </p>
                     </div>
