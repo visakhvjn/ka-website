@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { LocaleProvider } from "@/components/layout/LocaleProvider";
+import { CalendlyProvider } from "@/components/calendly/CalendlyProvider";
 import { WhatsAppFloat } from "@/components/layout/WhatsAppFloat";
 import { getServerLocale } from "@/lib/i18n/server";
 import { site } from "@/data/site";
@@ -59,10 +60,12 @@ export default async function RootLayout({
     >
       <body className="flex min-h-full flex-col">
         <LocaleProvider initialLocale={initialLocale}>
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <WhatsAppFloat />
+          <CalendlyProvider>
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <WhatsAppFloat />
+          </CalendlyProvider>
         </LocaleProvider>
       </body>
     </html>

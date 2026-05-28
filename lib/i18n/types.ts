@@ -150,6 +150,7 @@ export type Messages = {
     messageLabel: string;
     messagePlaceholder: string;
     submit: string;
+    bookOnlineAppointment: string;
     submitting: string;
     successTitle: string;
     successBody: string;

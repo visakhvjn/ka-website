@@ -258,6 +258,7 @@ export const ar: Messages = {
     messageLabel: "الرسالة *",
     messagePlaceholder: "أخبرونا عن عملكم وكيف يمكننا المساعدة...",
     submit: "إرسال رسالة",
+    bookOnlineAppointment: "احجز موعداً عبر الإنترنت",
     submitting: "جارٍ الإرسال...",
     successTitle: "شكراً لتواصلكم!",
     successBody:

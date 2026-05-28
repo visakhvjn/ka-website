@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Send } from "lucide-react";
+import { Calendar, Send } from "lucide-react";
 import { site } from "@/data/site";
+import { useCalendly } from "@/components/calendly/CalendlyProvider";
 import {
   useLocale,
   useServiceCategories,
@@ -19,6 +20,7 @@ const emptyForm = {
 
 export function ContactForm() {
   const { messages: m } = useLocale();
+  const { openBooking } = useCalendly();
   const serviceCategories = useServiceCategories();
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -218,10 +220,22 @@ export function ContactForm() {
         />
       </div>
 
-      <Button type="submit" size="lg" disabled={submitting}>
-        {submitting ? m.contactForm.submitting : m.contactForm.submit}
-        <Send className="h-4 w-4" />
-      </Button>
+      <div className="flex flex-wrap gap-4">
+        <Button type="submit" size="lg" disabled={submitting}>
+          {submitting ? m.contactForm.submitting : m.contactForm.submit}
+          <Send className="h-4 w-4" />
+        </Button>
+        <Button
+          type="button"
+          size="lg"
+          variant="outline"
+          disabled={submitting}
+          onClick={openBooking}
+        >
+          {m.contactForm.bookOnlineAppointment}
+          <Calendar className="h-4 w-4" />
+        </Button>
+      </div>
     </form>
   );
 }
