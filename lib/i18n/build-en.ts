@@ -206,7 +206,7 @@ export function buildEnglishMessages(): Messages {
       messageLabel: "Message *",
       messagePlaceholder: "Tell us about your business and how we can help...",
     submit: "Send message",
-    bookOnlineAppointment: "Book online appointment",
+    bookOnlineAppointment: "Book appointment",
     submitting: "Sending...",
     successTitle: "Thank you for reaching out!",
     successBody:

@@ -290,7 +290,7 @@ export const ka: Messages = {
     messagePlaceholder:
       "მოგვიყევით თქვენი ბიზნესის შესახებ და როგორ შეგვიძლია დაგეხმაროთ...",
     submit: "შეტყობინების გაგზავნა",
-    bookOnlineAppointment: "ონლაინ ვიზიტის დაჯავშნა",
+    bookOnlineAppointment: "ვიზიტის დაჯავშნა",
     submitting: "იგზავნება...",
     successTitle: "გმადლობთ, რომ დაგვიკავშირდით!",
     successBody:
